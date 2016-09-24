@@ -149,6 +149,15 @@ config include
 
 
 ### EXAMPLE CONFIG SECTIONS
+
+# Allow the DMZ to access 192.168.1.4:5432 (%%FIXME:%% UNTESTED)
+#config rule
+#	option src		dmz
+#	option proto		'tcpudp'
+#	option dest_ip		'192.168.1.4'
+#	option dest_port	'5432'
+#	option target		ACCEPT
+
 # do not allow a specific ip to access wan
 #config rule
 #	option src		lan

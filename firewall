@@ -34,6 +34,14 @@ config forwarding
 	option src		lan
 	option dest		wan
 
+# Allow the DMZ to use the router as the DNS Server
+config rule
+	option name		DMZ-Allow-As-DNS-Server
+	option src		'dmz'
+	option proto		'tcpudp'
+	option dest_port	'53'
+	option target		ACCEPT
+
 # We need to accept udp packets on port 68,
 # see https://dev.openwrt.org/ticket/4108
 config rule

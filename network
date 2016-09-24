@@ -10,13 +10,19 @@ config globals 'globals'
 
 # Step 2 in defining a VLAN define the interfaces
 config interface 'lan'
-	option ifname 'eth0.1' # Corresponds to vlan switch0_1 below
+	option ifname 'eth0.1' # Corresponds to vlan switch0 below
 	option force_link '1'
 	option type 'bridge'
 	option proto 'static'
 	option ipaddr '192.168.1.1'
 	option netmask '255.255.255.0'
 	option ip6assign '60'
+
+config interface 'dmz'
+	option ifname 'eth0.2'
+	option proto 'static'
+	option ipaddr '192.168.2.1'
+	option netmask '255.255.255.0'
 
 config interface 'wan'
 	option ifname 'eth1'
@@ -35,14 +41,14 @@ config switch
 
 # Define the LAN vlan
 # Note that ports 1,2 and 3 are 3, 2, and 1 on the physical router.
-config switch_vlan
+config switch_vlan 'eth0_1' # Refers to 'eth0.1' in lan interface section's ifname
 	option device 'switch0'
 	option vlan '1'
-	option ports '0 1 2 3 5t'
+	option ports '1 2 3 5t'
 
 # Define the DMZ vlan
 # Note that port 0 is LAN 4
-#config switch_vlan 'eth0_2'
-#	option device 'switch0'
-#        option vlan '2'
-#        option ports '0 5t'
+config switch_vlan 'eth0_2' # Refers to 'eth0.2' in dmz interface section's ifname
+	option device 'switch0'
+        option vlan '2'
+        option ports '0 5t'

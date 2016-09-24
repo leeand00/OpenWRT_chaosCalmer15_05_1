@@ -14,6 +14,13 @@ config zone
 	option forward		ACCEPT
 
 config zone
+	option name		dmz
+	list   network		'dmz'
+	option input		REJECT
+	option output		ACCEPT
+	option forward		REJECT
+
+config zone
 	option name		wan
 	list   network		'wan'
 	list   network		'wan6'
@@ -26,6 +33,28 @@ config zone
 config forwarding
 	option src		lan
 	option dest		wan
+
+# Allow the DMZ to access the Internet
+config forwarding
+	option src		dmz
+	option dest		wan
+
+# Allow the DMZ to use the router as the DNS Server
+config rule
+	option name		DMZ-Allow-As-DNS-Server
+	option src		'dmz'
+	option proto		'tcpudp'
+	option dest_port	'53'
+	option target		ACCEPT
+
+# Allow the DMZ to use the router as the DHCP Server
+config rule
+	option name		DMZ-Allow-As-DHCP-Server
+	option src		'dmz'
+	option proto		'udp'
+	option dest_port	'67'
+	option target		ACCEPT
+
 
 # We need to accept udp packets on port 68,
 # see https://dev.openwrt.org/ticket/4108
@@ -121,6 +150,14 @@ config include
 
 
 ### EXAMPLE CONFIG SECTIONS
+# Allow the DMZ to access 192.168.1.4:5432 (%%FIXME:%% UNTESTED)
+#config rule
+#	option src		dmz
+#	option proto		'tcpudp'
+#	option dest_ip		'192.168.1.4'
+#	option dest_port	'5432'
+#	option target		ACCEPT
+
 # do not allow a specific ip to access wan
 #config rule
 #	option src		lan
@@ -140,6 +177,15 @@ config include
 #	option src		lan
 #	option proto	ICMP
 #	option target	DROP
+
+# Make 192.168.2.2:80 publicly accessible
+# (on the DMZ)
+#config redirect
+#	option _name 		'http'
+#	option src		'wan'
+#	option proto		'tcp'
+#	option src_dport	'80'
+#	option dest_ip		'192.168.2.2'
 
 # port redirect port coming in on wan to lan
 #config redirect

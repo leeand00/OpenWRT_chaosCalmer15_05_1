@@ -34,6 +34,11 @@ config forwarding
 	option src		lan
 	option dest		wan
 
+# Allow the DMZ to access the Internet
+config forwarding
+	option src		dmz
+	option dest		wan
+
 # Allow the DMZ to use the router as the DNS Server
 config rule
 	option name		DMZ-Allow-As-DNS-Server

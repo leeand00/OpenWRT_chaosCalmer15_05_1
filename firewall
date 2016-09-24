@@ -14,6 +14,13 @@ config zone
 	option forward		ACCEPT
 
 config zone
+	option name		dmz
+	list   network		'dmz'
+	option input		REJECT
+	option output		ACCEPT
+	option forward		REJECT
+
+config zone
 	option name		wan
 	list   network		'wan'
 	list   network		'wan6'

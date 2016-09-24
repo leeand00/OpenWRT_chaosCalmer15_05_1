@@ -19,10 +19,10 @@ config interface 'lan'
 	option ip6assign '60'
 
 config interface 'dmz'
-       option ifname 'eth0.2' # Corresponds to vlan switch0_2 below
-       option proto 'static'
-       option ipaddr '192.168.2.1' # Sperate network
-       option netmask '255.255.255.0'
+	option ifname 'eth0.2'
+	option proto 'static'
+	option ipaddr '192.168.2.1'
+	option netmask '255.255.255.0'
 
 config interface 'wan'
 	option ifname 'eth1'

@@ -42,6 +42,14 @@ config rule
 	option dest_port	'53'
 	option target		ACCEPT
 
+# Allow the DMZ to use the router as the DHCP Server
+config rule
+	option name		DMZ-Allow-As-DHCP-Server
+	option src		'dmz'
+	option proto		'udp'
+	option dest_port	'67'
+	option target		ACCEPT
+
 # We need to accept udp packets on port 68,
 # see https://dev.openwrt.org/ticket/4108
 config rule

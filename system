@@ -1,0 +1,39 @@
+
+config system
+	option hostname 'OpenWrt'
+	option zonename 'America/New York'
+	option timezone 'EST5EDT,M3.2.0,M11.1.0'
+	option conloglevel '8'
+	option cronloglevel '8'
+
+config timeserver 'ntp'
+	list server '0.openwrt.pool.ntp.org'
+	list server '1.openwrt.pool.ntp.org'
+	list server '2.openwrt.pool.ntp.org'
+	list server '3.openwrt.pool.ntp.org'
+	option enabled '1'
+
+config led 'led_wlan'
+	option name 'Wireless'
+	option sysfs 'buffalo:green:wireless'
+	option trigger 'phy0tpt'
+
+config led 'led_router'
+	option name 'Router'
+	option sysfs 'buffalo:green:router'
+	option trigger 'netdev'
+	option dev 'eth1'
+	option mode 'link tx rx'
+
+config led 'led_usb'
+	option name 'USB'
+	option sysfs 'buffalo:blue:usb'
+	option trigger 'usbdev'
+	option dev '1-1'
+	option interval '50'
+
+config button
+	option button 'BTN_2'
+	option action 'pressed'
+	option handler '/usr/bin/usb-umount'
+

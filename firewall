@@ -169,6 +169,15 @@ config include
 #	option proto	ICMP
 #	option target	DROP
 
+# Make 192.168.2.2:80 publicly accessible
+# (on the DMZ)
+#config redirect
+#	option _name 		'http'
+#	option src		'wan'
+#	option proto		'tcp'
+#	option src_dport	'80'
+#	option dest_ip		'192.168.2.2'
+
 # port redirect port coming in on wan to lan
 #config redirect
 #	option src			wan
